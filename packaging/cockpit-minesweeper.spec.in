@@ -41,9 +41,9 @@ Features classic gameplay with selectable board sizes and mine counts,
 a timer that starts on first click, and flag support via right-click.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}
 %if %{defined rebuild_bundle}
-%setup -q -D -T -a 1 -n %{name}-%{version}
+%setup -q -D -T -a 1 -n %{name}
 %endif
 
 %build
