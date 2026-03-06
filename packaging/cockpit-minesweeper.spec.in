@@ -64,14 +64,6 @@ if [ -d %{buildroot}%{_datadir}/cockpit/minesweeper ]; then
     rmdir %{buildroot}%{_datadir}/cockpit/minesweeper
 fi
 
-# Install license separately
-mkdir -p %{buildroot}%{_datadir}/licenses/cockpit-minesweeper
-install -m 0644 LICENSE %{buildroot}%{_datadir}/licenses/cockpit-minesweeper/LICENSE
-
-# Install doc
-mkdir -p %{buildroot}%{_datadir}/doc/packages/minesweeper
-install -m 0644 README.md %{buildroot}%{_datadir}/doc/packages/minesweeper/README.md
-
 # Rename/relocate metainfo to openSUSE path
 mkdir -p %{buildroot}%{_datadir}/metainfo
 if [ -f %{buildroot}%{_datadir}/metainfo/org.cockpit_project.minesweeper.metainfo.xml ]; then
@@ -86,10 +78,11 @@ find %{buildroot}%{_datadir}/cockpit/ -name '*.map' | xargs --no-run-if-empty rm
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 %files
+%license LICENSE
+%doc README.md
+%dir %{_datadir}/cockpit
 %dir %{_datadir}/cockpit/cockpit-minesweeper
 %{_datadir}/cockpit/cockpit-minesweeper/*
 %{_datadir}/metainfo/org.opensuse.cockpit_minesweeper.metainfo.xml
-%{_datadir}/doc/packages/minesweeper/README.md
-%{_datadir}/licenses/cockpit-minesweeper/LICENSE
 
 %changelog
