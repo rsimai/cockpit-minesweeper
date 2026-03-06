@@ -10,7 +10,7 @@ TARFILE=$(RPM_NAME)-$(VERSION).tar.xz
 NODE_CACHE=$(RPM_NAME)-node-$(VERSION).tar.xz
 SPEC=$(RPM_NAME).spec
 PREFIX ?= /usr/local
-APPSTREAMFILE=org.cockpit_project.$(subst -,_,$(PACKAGE_NAME)).metainfo.xml
+APPSTREAMFILE=org.opensuse.cockpit_minesweeper.metainfo.xml
 VM_IMAGE=$(CURDIR)/test/images/$(TEST_OS)
 # stamp file to check for node_modules/
 NODE_MODULES_TEST=package-lock.json
@@ -103,7 +103,7 @@ install: $(DIST_TEST) po/LINGUAS
 	mkdir -p $(DESTDIR)$(PREFIX)/share/metainfo/
 	msgfmt --xml -d po \
 		--template $(APPSTREAMFILE) \
-		-o $(DESTDIR)$(PREFIX)/share/metainfo/$(APPSTREAMFILE)
+		-o $(DESTDIR)$(PREFIX)/share/metainfo/org.opensuse.cockpit_minesweeper.metainfo.xml
 
 # this requires a built source tree and avoids having to install anything system-wide
 devel-install: $(DIST_TEST)

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="addon">
+  <id>org.opensuse.cockpit_minesweeper</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <name>Minesweeper</name>
+  <summary>Classic Minesweeper game for Cockpit</summary>
+  <description>
+    <p>
+      A fully playable Minesweeper game running as a Cockpit web application.
+      Features classic gameplay with selectable board sizes (9×9, 16×16, 16×30)
+      and mine counts, a timer that starts on first click, a mines-remaining
+      counter, and flag support via right-click.
+    </p>
+  </description>
+  <extends>org.cockpit_project.cockpit</extends>
+  <launchable type="cockpit-manifest">cockpit-minesweeper</launchable>
+  <url type="homepage">https://github.com/rsimai/cockpit-minesweeper</url>
+  <url type="bugtracker">https://github.com/rsimai/cockpit-minesweeper/issues</url>
+  <developer id="rsimai">
+    <name>Robert Simai</name>
+  </developer>
+</component>

@@ -1,0 +1,93 @@
+Name: cockpit-minesweeper
+Version: %{VERSION}
+Release: 1%{?dist}
+Summary: Minesweeper game for Cockpit
+License: LGPL-2.1-or-later
+
+# distributions which ship nodejs-esbuild can rebuild the bundle during package build
+%if 0%{?fedora} >= 42
+%define rebuild_bundle 1
+%endif
+
+Source0: https://github.com/rsimai/cockpit-minesweeper/releases/download/%{version}/%{name}-%{version}.tar.xz
+Source1: https://github.com/rsimai/cockpit-minesweeper/releases/download/%{version}/%{name}-node-%{version}.tar.xz
+
+BuildArch: noarch
+%if ! 0%{?suse_version}
+ExclusiveArch: %{nodejs_arches} noarch
+%endif
+BuildRequires: make
+%if 0%{?suse_version}
+BuildRequires: appstream-glib
+%else
+BuildRequires: libappstream-glib
+%endif
+BuildRequires: gettext
+%if 0%{?rhel} && 0%{?rhel} <= 8
+BuildRequires: libappstream-glib-devel
+%endif
+%if %{defined rebuild_bundle}
+BuildRequires: /usr/bin/node
+BuildRequires: nodejs-esbuild
+%endif
+
+Requires: cockpit-bridge
+
+%{NPM_PROVIDES}
+
+%description
+A fully playable Minesweeper game running as a Cockpit web application.
+Features classic gameplay with selectable board sizes and mine counts,
+a timer that starts on first click, and flag support via right-click.
+
+%prep
+%autosetup -n %{name}-%{version}
+%if %{defined rebuild_bundle}
+%setup -q -D -T -a 1 -n %{name}-%{version}
+%endif
+
+%build
+%if %{defined rebuild_bundle}
+rm -rf dist
+NODE_ENV=production NODE_PATH=/usr/lib/node_modules:$(echo /usr/lib/node_modules_*) ./build.js
+%endif
+
+%install
+%make_install PREFIX=/usr
+
+# Relocate cockpit data to the expected package path
+if [ -d %{buildroot}%{_datadir}/cockpit/minesweeper ]; then
+    mkdir -p %{buildroot}%{_datadir}/cockpit/cockpit-minesweeper
+    mv %{buildroot}%{_datadir}/cockpit/minesweeper/* %{buildroot}%{_datadir}/cockpit/cockpit-minesweeper/
+    rmdir %{buildroot}%{_datadir}/cockpit/minesweeper
+fi
+
+# Install license separately
+mkdir -p %{buildroot}%{_datadir}/licenses/cockpit-minesweeper
+install -m 0644 LICENSE %{buildroot}%{_datadir}/licenses/cockpit-minesweeper/LICENSE
+
+# Install doc
+mkdir -p %{buildroot}%{_datadir}/doc/packages/minesweeper
+install -m 0644 README.md %{buildroot}%{_datadir}/doc/packages/minesweeper/README.md
+
+# Rename/relocate metainfo to openSUSE path
+mkdir -p %{buildroot}%{_datadir}/metainfo
+if [ -f %{buildroot}%{_datadir}/metainfo/org.cockpit_project.minesweeper.metainfo.xml ]; then
+    mv %{buildroot}%{_datadir}/metainfo/org.cockpit_project.minesweeper.metainfo.xml \
+       %{buildroot}%{_datadir}/metainfo/org.opensuse.cockpit_minesweeper.metainfo.xml
+fi
+
+# drop source maps
+find %{buildroot}%{_datadir}/cockpit/ -name '*.map' | xargs --no-run-if-empty rm --verbose
+
+%check
+appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
+
+%files
+%dir %{_datadir}/cockpit/cockpit-minesweeper
+%{_datadir}/cockpit/cockpit-minesweeper/*
+%{_datadir}/metainfo/org.opensuse.cockpit_minesweeper.metainfo.xml
+%{_datadir}/doc/packages/minesweeper/README.md
+%{_datadir}/licenses/cockpit-minesweeper/LICENSE
+
+%changelog

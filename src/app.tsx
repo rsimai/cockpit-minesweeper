@@ -210,6 +210,7 @@ export const Application = () => {
     }, [stopTimer]);
 
     const handleBoardSizeChange = (value: string) => {
+        if (!(value in BOARD_CONFIGS)) return;
         setBoardSize(value);
         const defaultMines = MINE_OPTIONS[value][0];
         setMineCount(defaultMines);
@@ -218,6 +219,9 @@ export const Application = () => {
 
     const handleMineCountChange = (value: string) => {
         const mines = parseInt(value, 10);
+        const cfg = BOARD_CONFIGS[boardSize];
+        const maxMines = cfg.rows * cfg.cols - 9; // keep at least 9 safe cells
+        if (isNaN(mines) || mines < 1 || mines > maxMines) return;
         setMineCount(mines);
         startNewGame(boardSize);
     };
