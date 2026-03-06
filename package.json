@@ -1,6 +1,6 @@
 {
-  "name": "starter-kit",
-  "description": "Scaffolding for a cockpit module",
+  "name": "minesweeper",
+  "description": "Minesweeper game for Cockpit",
   "type": "module",
   "main": "index.js",
   "repository": "git@github.com:cockpit/starter-kit.git",

@@ -1,6 +1,110 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 @use "page.scss";
 
-p {
-    font-weight: bold;
+.ms-card {
+    display: inline-block;
+    min-width: unset;
 }
+
+.ms-toolbar {
+    margin-block-end: var(--pf-t--global--spacer--md);
+}
+
+/* Status bar: mines counter | smiley | timer */
+.ms-statusbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #c0c0c0;
+    border: 3px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+    padding: 6px 8px;
+    margin-block-end: 6px;
+    user-select: none;
+}
+
+.ms-counter {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #f00;
+    background: #000;
+    padding: 2px 4px;
+    letter-spacing: 2px;
+    min-width: 3ch;
+    text-align: right;
+    display: inline-block;
+}
+
+.ms-smiley {
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    font-size: 1.4rem;
+    line-height: 1;
+    padding: 2px 6px;
+    cursor: pointer;
+
+    &:active {
+        border-color: #808080 #ffffff #ffffff #808080;
+    }
+}
+
+/* Message banner */
+.ms-message {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 4px 0;
+    margin-block-end: 6px;
+
+    &--won {
+        color: var(--pf-t--global--color--status--success--default);
+    }
+
+    &--lost {
+        color: var(--pf-t--global--color--status--danger--default);
+    }
+}
+
+/* Board grid */
+.ms-board {
+    display: grid;
+    gap: 0;
+    border: 3px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+    width: fit-content;
+}
+
+/* Individual cell */
+.ms-cell {
+    width: 2rem;
+    height: 2rem;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    line-height: 1;
+    cursor: pointer;
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    padding: 0;
+    user-select: none;
+
+    &:active:not(:disabled) {
+        border-color: #808080 #ffffff #ffffff #808080;
+    }
+
+    &--revealed {
+        border: 1px solid #808080;
+        background: #c0c0c0;
+        cursor: default;
+    }
+
+    &--mine {
+        background: #f00;
+    }
+}
+
