@@ -3,6 +3,8 @@
 A fully playable [Minesweeper](https://en.wikipedia.org/wiki/Minesweeper_(video_game))
 game running as a [Cockpit](https://cockpit-project.org/) web application.
 
+![Screenshot](screenshot.png)
+
 ## Features
 
 - Classic Minesweeper gameplay — left-click to reveal, right-click to flag
