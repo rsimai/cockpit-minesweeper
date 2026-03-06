@@ -1,6 +1,24 @@
-# Cockpit Starter Kit
+# Cockpit Minesweeper
 
-Scaffolding for a [Cockpit](https://cockpit-project.org/) module.
+A fully playable [Minesweeper](https://en.wikipedia.org/wiki/Minesweeper_(video_game))
+game running as a [Cockpit](https://cockpit-project.org/) web application.
+
+## Features
+
+- Classic Minesweeper gameplay — left-click to reveal, right-click to flag
+- Dropdown selectors for board size (9×9 / 16×16 / 16×30) and mine count
+- Timer that starts on the first click
+- Mines-remaining counter
+- **New Game** button and smiley-face reset button
+- Win/loss detection with visual feedback
+
+## About the project scaffold
+
+This project was bootstrapped from the
+[Cockpit Starter Kit](https://github.com/cockpit-project/starter-kit), the
+official scaffolding for Cockpit modules. It uses React with TypeScript,
+PatternFly 6 components, esbuild, ESLint, and Stylelint — all inherited from
+the starter kit.
 
 # Development dependencies
 
@@ -42,7 +60,7 @@ this manually:
 
 ```
 mkdir -p ~/.local/share/cockpit
-ln -s `pwd`/dist ~/.local/share/cockpit/starter-kit
+ln -s `pwd`/dist ~/.local/share/cockpit/minesweeper
 ```
 
 After changing the code and running `make` again, reload the Cockpit page in
@@ -73,7 +91,7 @@ set to upload code changes to `~/.local/share/cockpit/` instead of
 To "uninstall" the locally installed version, run `make devel-uninstall`, or
 remove manually the symlink:
 
-    rm ~/.local/share/cockpit/starter-kit
+    rm ~/.local/share/cockpit/minesweeper
 
 # Running eslint
 
